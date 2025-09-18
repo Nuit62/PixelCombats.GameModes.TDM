@@ -1,7 +1,9 @@
 import { DisplayValueHeader } from 'pixel_combats/basic';
-import { Game, Players, Inventory, LeaderBoard, BuildBlocksSet, Teams, Damage, BreackGraph, Ui, Properties, GameMode, Spawns, Timers, TeamsBalancer, NewGame, NewGameVote } from 'pixel_combats/room';
+import { Game, Players, Inventory, LeaderBoard, BuildBlocksSet, Teams, Damage, BreackGraph, Ui, Properties, GameMode, Spawns, Timers, TeamsBalancer, NewGame, NewGameVote, MapEditor } from 'pixel_combats/room';
 import * as teams from './default_teams.js';
 import * as default_timer from './default_timer.js';
+import * as assist from './assist.js';
+import * as mapScores from './map_scores.js';
 
 // настройки
 const WaitingPlayersTime = 10;
@@ -12,7 +14,7 @@ const MockModeTime = 10;
 const EndOfMatchTime = 8;
 const VoteTime = 10;
 
-const KILL_SCORES = 5;
+// очки за килл для командного счётчика — см. assist.KILL_SCORES
 const WINNER_SCORES = 10;
 const TIMER_SCORES = 5;
 const SCORES_TIMER_INTERVAL = 30;
@@ -110,16 +112,17 @@ Damage.OnDeath.Add(function (player) {
 	}
 	++player.Properties.Deaths.Value;
 });
-// обработчик убийств
-Damage.OnKill.Add(function (player, killed) {
-	if (stateProp.Value == MockModeStateValue) return;
-	if (killed.Team != null && killed.Team != player.Team) {
-		++player.Properties.Kills.Value;
-		// добавляем очки кила игроку и команде
-		player.Properties.Scores.Value += KILL_SCORES;
-		if (stateProp.Value !== MockModeStateValue && player.Team != null)
-			player.Team.Properties.Get(SCORES_PROP_NAME).Value += KILL_SCORES;
-	}
+
+// детальный отчёт по убийству: начисляем очки за убийство и ассисты по ТЗ
+Damage.OnKillReport.Add(function (victim, killer, report) {
+    if (stateProp.Value == MockModeStateValue) return;
+    assist.applyKillReportScores(victim, killer, report, SCORES_PROP_NAME);
+});
+
+// начисление очков за редактирование карты
+MapEditor.OnMapEdited.Add(function (player, details) {
+    if (stateProp.Value == MockModeStateValue) return;
+    mapScores.applyMapEditScores(player, details, blueTeam, redTeam, SCORES_PROP_NAME);
 });
 
 // таймер очков за проведенное время
