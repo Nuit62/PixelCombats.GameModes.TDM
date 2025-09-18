@@ -2,8 +2,8 @@
 import { BreackGraph } from 'pixel_combats/room';
 
 // корневые ID блоков команд (замените при необходимости реальными)
-const RED_TEAM_ROOT_BLOCK_ID = 1201;
-const BLUE_TEAM_ROOT_BLOCK_ID = 1202;
+const RED_TEAM_ROOT_BLOCK_ID = 33;
+const BLUE_TEAM_ROOT_BLOCK_ID = 28;
 
 // получить союзный/вражеский корневой блок для игрока
 function getAllyEnemyRootIds(player, blueTeam, redTeam) {
