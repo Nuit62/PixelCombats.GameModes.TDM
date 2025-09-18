@@ -3,6 +3,7 @@ import { BreackGraph } from 'pixel_combats/room';
 
 const SCORES_PROP_NAME = "Scores";
 
+const ENEMY_BLOCK_SCORE = 25;
 // корневые ID блоков команд
 const RED_TEAM_ROOT_BLOCK_ID = 33;
 const BLUE_TEAM_ROOT_BLOCK_ID = 28;
@@ -31,29 +32,32 @@ function calcMapEditScore(details, allyRootBlockId, enemyRootBlockId) {
     const isDeletion = mapChange.BlockId === 0;
     if (!isDeletion) return 0;
 
-    // удаление: анализируем, что было до изменения (старые блоки в области)
-    const oldList = details.OldMapData || [];
-    let destroyedEnemy = false;
-    let destroyedOwn = false;
-    let mapBlocksCount = 0;
-    for (let i = 0; i < oldList.length; ++i) {
-        const old = oldList[i];
-        if (!old) continue;
-        if (!old.BlockId || old.BlockId === 0) continue; // пропускаем пустоту
-        const root = BreackGraph.BlockRoot(old.BlockId);
-        if (root === enemyRootBlockId) {
-            destroyedEnemy = true;
-        }
-        else if (root === allyRootBlockId) {
-            destroyedOwn = true;
-        }
-        else {
-            ++mapBlocksCount; // блок карты
-        }
-    }
-    if (destroyedEnemy) return 25; // разрушение блока врага
-    if (!destroyedOwn && mapBlocksCount > 0) return Math.min(mapBlocksCount, 2); // 1–2 очка за событие
-    return 0;
+	// удаление: анализируем, что было до изменения (старые блоки в области)
+	const oldList = details.OldMapData || [];
+	let total = 0;
+	let mapBlocksAwarded = 0; // лимит на очки за блоки карты (1–2 за событие)
+	for (let i = 0; i < oldList.length; ++i) {
+		const old = oldList[i];
+		if (!old) continue;
+		if (!old.BlockId || old.BlockId === 0) continue; // пропускаем пустоту
+		const root = BreackGraph.BlockRoot(old.BlockId);
+		if (root === enemyRootBlockId) {
+			// разрушение блока врага
+			total += ENEMY_BLOCK_SCORE;
+		}
+		else if (root === allyRootBlockId) {
+			// разрушение своего/союзного блока — без очков
+			// total += 0;
+		}
+		else {
+			// блок карты — символические очки, максимум 2 за событие
+			if (mapBlocksAwarded < 2) {
+				total += 1;
+				++mapBlocksAwarded;
+			}
+		}
+	}
+	return total;
 }
 
 // применяет начисления очков игроку за редактирование карты
