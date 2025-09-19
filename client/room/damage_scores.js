@@ -1,6 +1,7 @@
 // библиотека расчёта очков за урон/убийства/ассисты для TDM
 
 import { GameMode } from 'pixel_combats/room';
+import { log } from 'pixel_combats/debug';
 
 const SCORES_PROP_NAME = "Scores";
 
@@ -113,11 +114,19 @@ export function applyKillReportScores(victim, killer, report) {
 	if (killer && victim && killer.Team != null && victim.Team != null && killer.Team != victim.Team) {
         // обработка команды убийцы
         const teamScoresProp = killer.Team && killer.Team.Properties ? killer.Team.Properties.Get(SCORES_PROP_NAME) : null;
-        if (teamScoresProp)
-            teamScoresProp.Value += KILL_SCORES;
+        if (teamScoresProp) {
+            const addTeam = KILL_SCORES;
+            log.Debug(`[DamageScores] TEAM +${addTeam}`);
+            teamScoresProp.Value += addTeam;
+        }
         // обработка индивидуальных очков убийцы
         ++killer.Properties.Kills.Value;
-		killer.Properties.Scores.Value += calcKillScoreFromHit(report.KillHit); 
+        		const addKill = calcKillScoreFromHit(report.KillHit);
+        		const weaponId = report.KillHit ? report.KillHit.WeaponID : 0;
+        		const category = getWeaponCategory(weaponId);
+        		const mod = getMapModifier();
+        		log.Debug(`[DamageScores] KILL add=+${addKill} category=${category} mod=${mod}`);
+        		killer.Properties.Scores.Value += addKill; 
 	}
 
 	// обработка ассистов
@@ -129,7 +138,10 @@ export function applyKillReportScores(victim, killer, report) {
         // ограничитель френдли фаера
 		if (i.Attacker.Team === victim.Team) continue;
         // обработка индивидуальных очков ассиста
-		i.Attacker.Properties.Scores.Value += calcAssistScore(i);
+        		const addAssist = calcAssistScore(i);
+        		const modA = getMapModifier();
+        		log.Debug(`[DamageScores] ASSIST add=+${addAssist} mod=${modA}`);
+        		i.Attacker.Properties.Scores.Value += addAssist;
 	}
 }
 
