@@ -35,7 +35,16 @@ function calcMapEditScore(details, allyRootBlockId, enemyRootBlockId) {
 		const firstOld = oldList.length > 0 ? oldList[0] : null;
 		const firstWasEmpty = !firstOld || !firstOld.BlockId || firstOld.BlockId === 0;
 		// если было пустота то это постановка блока, иначе это замена блока
-		if (firstWasEmpty) return PLACE_BLOCK_SCORE;
+		if (firstWasEmpty){ 
+			// выводим уведомление
+			ScoreInfo.Show(details.Player, {
+				Type: 3, // Build
+				WeaponId: 0,
+				Scores: PLACE_BLOCK_SCORE,
+				IsHeadshot: false
+			});
+			return PLACE_BLOCK_SCORE;
+		}
 		else return 0; 
 	}
 
