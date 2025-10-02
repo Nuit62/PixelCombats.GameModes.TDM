@@ -64,7 +64,7 @@ LeaderBoard.PlayerLeaderBoardValues = [
 LeaderBoard.TeamLeaderBoardValue = new DisplayValueHeader(SCORES_PROP_NAME, "Statistics\\Scores", "Statistics\\Scores");
 // задаем сортировку команд для списка лидирующих по сумме очков игроков
 LeaderBoard.TeamWeightGetter.Set(function (team) {
-    return team.Players.Sum(function (p) { return p.Properties.Get(SCORES_PROP_NAME).Value; });
+    return team.Properties.Get(SCORES_PROP_NAME).Value;
 });
 // задаем сортировку игроков для списка лидирующих
 LeaderBoard.PlayersWeightGetter.Set(function (player) {
