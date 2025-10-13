@@ -1,13 +1,31 @@
 {
-  "mode.name": "Combate por equipos",
-  "mode.description": "Dos equipos luchan para alcanzar el límite de bajas.",
+  "mode.name": "TDM 2.0 Enhanced",
+  "mode.description": "Batalla por equipos de 3 etapas con sistema Merit completo",
 
   "maplist.allmaps": "Todos los mapas",
 
   "params.MapRotation": "Rotación de mapas",
   "params.OnlyKnives": "Solo cuchillos",
   "params.OnlyPlayerBlocksDmg": "Daño solo a bloques de jugadores",
-  "params.LoosenBlocks": "Debilitar bloques",
-  "params.FriendlyFire": "Fuego amigo"
-}
+  "params.LoosenBlocks": "Aflojar bloques",
+  "params.FriendlyFire": "Fuego amigo",
 
+  "Hint/WaitingPlayers": "Esperando jugadores",
+  "Hint/TacticalPrep": "Preparación táctica",
+  "Hint/MainBattle": "Ataca a los enemigos",
+  "Hint/OvertimePause": "⚡ ¡Tiempo extra!",
+  "Hint/Overtime": "⏰ 30s combate final",
+  "Hint/TieBreaker": "⚖️ ¡Frag final!",
+  "Hint/EndOfMatch": "Fin del partido",
+  "Hint/MockHintForWinners": "¡Felicidades por la victoria!",
+  "Hint/MockHintForLoosers": "¡Inténtalo de nuevo!",
+
+  "Statistics/Kills": "Asesinatos",
+  "Statistics/KillsShort": "K",
+  "Statistics/Deaths": "Muertes",
+  "Statistics/DeathsShort": "D",
+  "Statistics/Spawns": "Apariciones",
+  "Statistics/SpawnsShort": "S",
+  "Statistics/Scores": "Puntos",
+  "Statistics/ScoresShort": "P"
+}
