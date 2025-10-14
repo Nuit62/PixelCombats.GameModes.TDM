@@ -3,6 +3,7 @@
   "mode.description": "Confrontation of two teams",
 
   "maplist.allmaps": "All Maps",
+  "maplist.interesting": "Interesting maps",
 
   "params.MapRotation": "Map rotation",
   "params.OnlyKnives": "Only knives",

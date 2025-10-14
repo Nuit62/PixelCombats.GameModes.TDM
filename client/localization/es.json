@@ -3,6 +3,7 @@
   "mode.description": "Confrontación de dos equipos",
 
   "maplist.allmaps": "Todos los mapas",
+  "maplist.interesting": "Mapas interesantes",
 
   "params.MapRotation": "Rotación de mapas",
   "params.OnlyKnives": "Solo cuchillos",

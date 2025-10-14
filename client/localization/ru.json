@@ -3,6 +3,7 @@
   "mode.description": "Противостояние двух команд",
 
   "maplist.allmaps": "Все карты",
+  "maplist.interesting": "Интересные карты",
 
   "params.MapRotation": "Ротация карт",
   "params.OnlyKnives": "Только ножи",
