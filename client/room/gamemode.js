@@ -1,6 +1,6 @@
 import { DisplayValueHeader } from 'pixel_combats/basic';
 import * as room_lib from 'pixel_combats/room';
-const { room, Game, Players, Inventory, LeaderBoard, BuildBlocksSet, Teams, Damage, BreackGraph, Ui, Properties, GameMode, Spawns, Timers, TeamsBalancer, NewGame, NewGameVote, MapEditor } = PC;
+const { room, Game, Players, Inventory, LeaderBoard, BuildBlocksSet, Teams, Damage, BreackGraph, Ui, Properties, GameMode, Spawns, Timers, TeamsBalancer, NewGame, NewGameVote, MapEditor } = room_lib;
 import * as teams from './default_teams.js';
 import * as default_timer from './default_timer.js';
 import * as damageScores from './damage_scores.js';
