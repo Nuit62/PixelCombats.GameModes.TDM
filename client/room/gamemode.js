@@ -201,7 +201,8 @@ function SetTacticalPreparation() {
 	inventory.Secondary.Value = false;
 	inventory.Melee.Value = true;
 	inventory.Explosive.Value = false;
-	inventory.Build.Value = true;
+ inventory.ExplosiveInfinity.Value = false;
+ 	inventory.Build.Value = true;
 	// урон включен, быстрый респавн
 	Damage.GetContext().DamageOut.Value = true;
 	Spawns.GetContext().RespawnTime.Value = 2;
@@ -229,6 +230,7 @@ function SetGameMode() {
 		inventory.Secondary.Value = true;
 		inventory.Melee.Value = true;
 		inventory.Explosive.Value = true;
+ inventory.ExplosiveInfinity.Value = true;
 		inventory.Build.Value = true;
 	}
 
@@ -320,8 +322,8 @@ function SetMockMode(winners, loosers) {
 	inventory.Main.Value = false;
 	inventory.Secondary.Value = false;
 	inventory.Melee.Value = false;
-	inventory.ExplosiveInfinity.Value = false;
-inventory.Explosive.Value = false;
+	inventory.ExplosiveInfinity.Value = true;
+inventory.Explosive.Value = true;
 	inventory.Build.Value = false;
 
 	// set winners
