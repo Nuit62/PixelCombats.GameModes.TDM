@@ -221,7 +221,8 @@ function SetGameMode() {
 		inventory.Main.Value = false;
 		inventory.Secondary.Value = false;
 		inventory.Melee.Value = true;
-		inventory.Explosive.Value = false;
+		inventory.ExplosiveInfinity.Value = true;
+		inventory.Explosive.Value = true;
 		inventory.Build.Value = true;
 	} else {
 		inventory.Main.Value = true;
@@ -319,7 +320,8 @@ function SetMockMode(winners, loosers) {
 	inventory.Main.Value = false;
 	inventory.Secondary.Value = false;
 	inventory.Melee.Value = false;
-	inventory.Explosive.Value = false;
+	inventory.ExplosiveInfinity.Value = false;
+inventory.Explosive.Value = false;
 	inventory.Build.Value = false;
 
 	// set winners
